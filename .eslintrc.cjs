@@ -13,11 +13,6 @@ module.exports = {
         'node': false,
         'browser': true
     },
-    'settings': {
-        react: {
-            version: '18.2'
-        }
-    },
     // https://eslint.org/docs/latest/rules
     'rules': {
         'array-bracket-newline': 'off',
