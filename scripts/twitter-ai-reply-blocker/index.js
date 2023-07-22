@@ -15,8 +15,8 @@
 // @match       https://twitter.com/*
 // @run-at      document-idle
 // @noframes
-// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/utils.js
-// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/twitter.js
+// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/c556acdb91be801162223f60352d08ec968256a9/scripts/utils.js
+// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/c556acdb91be801162223f60352d08ec968256a9/scripts/twitter.js
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/twitter-ai-reply-blocker/index.js
 // ==/UserScript==
 

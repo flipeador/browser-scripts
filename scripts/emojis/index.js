@@ -17,7 +17,7 @@
 // @exclude     *localhost*
 // @grant       GM_addStyle
 // @run-at      document-idle
-// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/utils.js
+// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/c556acdb91be801162223f60352d08ec968256a9/scripts/utils.js
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/index.js
 // ==/UserScript==
 
