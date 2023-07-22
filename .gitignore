@@ -1,0 +1,6 @@
+﻿/.vscode/
+
+/node_modules/
+
+/pnpm-lock.yaml
+/clear.bat
