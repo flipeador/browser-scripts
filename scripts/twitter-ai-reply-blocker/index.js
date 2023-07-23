@@ -7,9 +7,9 @@
 /* global Twitter */
 
 // ==UserScript==
-// @name        Twitter IA Reply Blocker
+// @name        Twitter AI Reply Blocker
 // @author      Flipeador
-// @version     1.0.0
+// @version     1.0.1
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/twitter-ai-reply-blocker
 // @match       https://twitter.com/*
@@ -27,15 +27,21 @@ const MIN_FOLLOWERS_COUNT = 5000;
 
 const ignoreList = [];
 
+function checkTweetText(text) {
+    return (
+        text &&
+        text.replaceAll(BLACKLIST, '') === ''
+    );
+}
+
 mutationObserver(async () => {
-    const list = [...Twitter.parseAllTweets()].filter(data => {
-        if (data.text.replaceAll(BLACKLIST, '') === '') {
-            if (ignoreList.includes(data.user.name)) {
-                data.box.style.display = 'none';
-            } else {
-                ignoreList.push(data.user.name);
-                return true;
-            }
+    const tweets = [...Twitter.parseAllTweets()];
+
+    const list = tweets.filter(data => {
+        if (checkTweetText(data.text)) {
+            data.box.style.display = 'none'; // hide tweet
+            if (!ignoreList.includes(data.user.name))
+                return ignoreList.push(data.user.name);
         }
         return false;
     });
@@ -47,16 +53,17 @@ mutationObserver(async () => {
     if (!info) return;
 
     list.forEach(async (data, index) => {
-        data.info = info[index];
         if (
-            data.info &&
-            !data.info.following && // do not block accounts you follow
-            data.info.followers_count < MIN_FOLLOWERS_COUNT
+            info[index] &&
+            !info[index].following && // do not block accounts you follow
+            info[index].followers_count < MIN_FOLLOWERS_COUNT
         ) {
-            if (await Twitter.blockUser(data.user.name)) {
-                console.log('Blocked:', data.user.url, data.box, data.tweet, data.text);
-                data.box.style.display = 'none';
-            }
+            const result = await Twitter.blockUser(data.user.name);
+            console.log(
+                '%cBlock:',
+                `color: ${result ? 'green' : 'red'};`,
+                data.user.url, data.box, data.tweet, data.text
+            );
         }
     });
 });
