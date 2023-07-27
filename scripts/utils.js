@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 'use strict';
 
-function search(re, str, cbmatch, cbother)
-{
+function search(re, str, cbmatch, cbother) {
     re.lastIndex = 0;
     let count = 0, index = 0, match;
     while (match = re.exec(str)) {
@@ -17,8 +16,7 @@ function search(re, str, cbmatch, cbother)
     return count;
 }
 
-function cookies(...list)
-{
+function cookies(...list) {
     const cookies = document.cookie.split(';')
     .map(cookie => cookie.trim().split('='))
     .reduce((cookies, cookie) => {
@@ -35,8 +33,7 @@ function cookies(...list)
     return list.map(name => cookies[name]);
 }
 
-function ajax(url, init)
-{
+function ajax(url, init) {
     return fetch(
         url, init
     ).then(
@@ -61,11 +58,12 @@ function getClosestElement(node) {
     return node;
 }
 
-function mutationObserver(callback, root=document.body)
-{
-    mutationObserver.timer = setTimeout(() => callback(root), 500);
-    new MutationObserver(() => {
+function mutationObserver(callback, root=document.body, delay=500) {
+    mutationObserver.timer = setTimeout(() => callback({ root }), delay);
+    new MutationObserver((records, observer) => {
         clearTimeout(mutationObserver.timer);
-        mutationObserver.timer = setTimeout(() => callback(root), 500);
+        mutationObserver.timer = setTimeout(() => {
+            return callback({ root, records, observer });
+        }, delay);
     }).observe(root, { subtree: true, childList: true });
 }
