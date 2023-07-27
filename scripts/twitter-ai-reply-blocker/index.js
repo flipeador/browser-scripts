@@ -12,7 +12,7 @@
 // ==UserScript==
 // @name        Twitter AI Reply Blocker
 // @author      Flipeador
-// @version     1.0.2
+// @version     1.0.3
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/twitter-ai-reply-blocker
 // @match       https://twitter.com/*
@@ -27,7 +27,7 @@
 // ==/UserScript==
 
 // Blacklisted accounts.
-const BLACKLIST = ['ReplyGPT', 'RoflGPTBot', 'LmaoGPT', 'BurnGPT', 'TruthGPTBot', 'EntertainUsNob', 'ExplainThisGod', 'RoastHimJim', 'RoastMasterYoda', 'MakeItAQuote', 'DrawThisTweet', 'McPepes_AI', 'GrugThis', 'ExplainthisRick', 'FrameHimJim', 'ExplainThisBean', 'ExplainThisLiu', 'ExplainThisTumb', 'BasedReplyBot', 'LameGPT', 'MrShelbySays', 'MarinethisBob'];
+const BLACKLIST = ['ReplyGPT', 'RoflGPTBot', 'LmaoGPT', 'BurnGPT', 'TruthGPTBot', 'EntertainUsNob', 'ExplainThisGod', 'RoastHimJim', 'RoastMasterYoda', 'MakeItAQuote', 'DrawThisTweet', 'McPepes_AI', 'GrugThis', 'ExplainthisRick', 'FrameHimJim', 'ExplainThisBean', 'ExplainThisLiu', 'ExplainThisTumb', 'BasedReplyBot', 'LameGPT', 'MrShelbySays', 'MarinethisBob', 'ReplyGrump', 'BoomerExplains', 'PleaseDebunk', 'ReplyGPT_Lol'];
 // Accounts with at least this amount of followers will never be blocked.
 const MIN_FOLLOWERS_COUNT = 5000;
 
