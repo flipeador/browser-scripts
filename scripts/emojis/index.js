@@ -17,7 +17,7 @@
 // @exclude     *localhost*
 // @grant       GM_addStyle
 // @run-at      document-idle
-// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/c556acdb91be801162223f60352d08ec968256a9/scripts/utils.js
+// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/1c2ce7968b79ec8adc1680ca1918c9d686d4d3ad/scripts/utils.js
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/index.js
 // ==/UserScript==
 
@@ -153,7 +153,7 @@ function parseTextNode(node) {
 //     });
 // }
 
-mutationObserver(root => {
+mutationObserver(({ root }) => {
     while (observers.length)
         observers.pop().disconnect();
 
