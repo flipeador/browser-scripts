@@ -2,33 +2,15 @@
 // https://eslint.org/docs/latest/use/configure
 
 import js from '@eslint/js';
+import globals from 'globals';
 
 export default [
     js.configs.all,
     {
         languageOptions: {
-            // https://github.com/sindresorhus/globals/blob/main/globals.json
             globals: {
-                // browser
-                'alert': false,
-                'CSS': false,
-                'document': false,
-                'DocumentFragment': false,
-                'Element': false,
-                'HTMLImageElement': false,
-                'HTMLSpanElement': false,
-                'Image': false,
-                'IntersectionObserver': false,
-                'MutationObserver': false,
-                'Node': false,
-                'prompt': false,
-                'Text': false,
-                // shared-node-browser
-                'clearTimeout': false,
-                'console': false,
-                'fetch': false,
-                'setTimeout': false,
-                'URLSearchParams': false
+                ...globals.browser,
+                ...globals.greasemonkey
             }
         },
         rules: {

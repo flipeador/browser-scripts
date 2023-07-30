@@ -1,8 +1,6 @@
 /* eslint-disable strict, no-alert */
 'use strict';
 
-/* global GM_getValue, GM_setValue, GM_registerMenuCommand */
-
 // utils.js
 /* global mutationObserver */
 

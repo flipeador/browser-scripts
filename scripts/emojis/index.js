@@ -186,10 +186,8 @@ mutationObserver(({ root }) => {
     parseTextNodes(root, node => observe(node, parseTextNode));
 });
 
-// https://violentmonkey.github.io/api/gm/#gm_addstyle
 // https://www.jsdelivr.com/package/npm/twemoji-colr-font
 // https://fonts.google.com/noto/specimen/Noto+Color+Emoji
-// eslint-disable-next-line no-undef
 GM_addStyle(`
   @import url('https://cdn.jsdelivr.net/npm/twemoji-colr-font/twemoji.min.css');
   @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
