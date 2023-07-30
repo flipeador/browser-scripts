@@ -11,9 +11,9 @@
     "tampermonkey",
     "violentmonkey"
   ],
-  "license": "gpl-3.0",
+  "license": "apache-2.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "node --test test/"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
     "url": "https://github.com/flipeador/browser-scripts/issues"
   },
   "homepage": "https://github.com/flipeador/browser-scripts#readme",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
-    "eslint": "^8.45.0"
+    "eslint": "^8.46.0"
   }
 }

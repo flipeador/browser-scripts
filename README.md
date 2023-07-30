@@ -10,7 +10,7 @@ Monorepo with scripts for use with extensions that provides userscripts support 
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0**. See the [license file](LICENSE) for details.
+This project is licensed under the **Apache License 2.0**. See the [license file](LICENSE) for details.
 
 <!-- REFERENCE LINKS -->
 [tm]: https://www.tampermonkey.net
