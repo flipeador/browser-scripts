@@ -13,7 +13,8 @@
   ],
   "license": "apache-2.0",
   "scripts": {
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "eslint": "eslint ."
   },
   "repository": {
     "type": "git",

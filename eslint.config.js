@@ -1,16 +1,34 @@
 // ESLint Flat Configuration File
 // https://eslint.org/docs/latest/use/configure
 
+import js from '@eslint/js';
+
 export default [
-    'eslint:all',
+    js.configs.all,
     {
         languageOptions: {
-            // shared-node-browser
             // https://github.com/sindresorhus/globals/blob/main/globals.json
             globals: {
+                // browser
+                'alert': false,
+                'CSS': false,
+                'document': false,
+                'DocumentFragment': false,
+                'Element': false,
+                'HTMLImageElement': false,
+                'HTMLSpanElement': false,
+                'Image': false,
+                'IntersectionObserver': false,
+                'MutationObserver': false,
+                'Node': false,
+                'prompt': false,
+                'Text': false,
+                // shared-node-browser
                 'clearTimeout': false,
                 'console': false,
-                'setTimeout': false
+                'fetch': false,
+                'setTimeout': false,
+                'URLSearchParams': false
             }
         },
         rules: {
@@ -44,6 +62,7 @@ export default [
             'lines-around-comment': 'off',
             'lines-between-class-members': 'off',
             'max-classes-per-file': 'off',
+            'max-depth': 'off',
             'max-len': 'off',
             'max-lines': 'off',
             'max-lines-per-function': 'off',
