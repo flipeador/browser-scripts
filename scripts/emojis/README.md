@@ -1,16 +1,25 @@
 # Full Emoji Support For All Websites
 
-Render all emoji symbols and sequences in the browser, as specified in [Unicode® Technical Standard #51][uts51].
+Emoji are pictographs (pictorial symbols) that are typically presented in a colorful form and used inline in text.
+They represent things such as faces, weather, vehicles and buildings, food and drink, animals and plants, or icons that represent emotions, feelings, or activities.
 
+This script allows you to render all emoji symbols and sequences in the browser, as specified in [Unicode® Technical Standard #51][uts51].
+
+- Unicode Emoji Version: `v15.0`.
 - Included fonts: [Twemoji][twfnt], [Noto Color Emoji][nefnt].
-- You can enable the use of images to display emojis by setting `USE_IMG_EMOJI` to `true`.
-- There is a special handling for emojis on YouTube, but it requires the `:has` CSS selector.
+- You can enable the use of images to display emojis from the [User Script Commands][mm] menu.
+- There is a special handling for emojis on **YouTube**, but it requires the [`:has`][csshas] CSS selector.
 
-Visit [getemoji][ge] to test support for emojis on your browser.
+> [!NOTE]
+> Some sites may block the loading of emoji images due to [security reasons][csp].
+
+Visit [getemoji.com][ge] to test support for emojis on your browser.
+
+You can also check the Unicode official website at [unicode.org][uni1] or [unicode-org.github.io][uni2].
 
 ## Installation
 
-For more information, please refer to the [main page](../..).
+For more information, please refer to the [main page](../../README.md#installation).
 
 ```
 https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/index.js
@@ -18,6 +27,11 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 
 <!-- REFERENCE LINKS -->
 [uts51]: https://www.unicode.org/reports/tr51
+[uni1]: https://unicode.org/emoji/techindex.html
+[uni2]: https://unicode-org.github.io/emoji/emoji
 [twfnt]: https://www.jsdelivr.com/package/npm/twemoji-colr-font
 [nefnt]: https://fonts.google.com/noto/specimen/Noto+Color+Emoji
+[csshas]: https://caniuse.com/css-has
+[csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP "Content Security Policy"
 [ge]: https://getemoji.com
+[mm]: https://wiki.greasespot.net/Greasemonkey_Manual:Monkey_Menu
