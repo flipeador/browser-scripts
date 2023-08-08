@@ -14,7 +14,7 @@ Automatically blocks users who spam empty tweets that only contain a mention of 
 
 ## Installation
 
-For more information, please refer to the [main page](../..).
+For more information, please refer to the [main page](../../README.md#installation).
 
 ```
 https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/twitter-ai-reply-blocker/index.js
