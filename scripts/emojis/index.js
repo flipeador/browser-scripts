@@ -1,16 +1,7 @@
-/* eslint-disable strict */
-'use strict';
-
-// greasemonkey.js
-/* global registerToggleMenuCmd */
-
-// utils.js
-/* global search, isIntersecting, getClosestElement, mutationObserver */
-
 // ==UserScript==
 // @name        Full Emoji Support For All Websites
 // @author      Flipeador
-// @version     1.0.1
+// @version     1.0.2
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/emojis
 // @include     *
@@ -29,6 +20,15 @@
 // @require     https://raw.githubusercontent.com/flipeador/browser-scripts/761129b5da8f27b7bcf96d69b45c42207e4cfa0a/scripts/utils.js
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/index.js
 // ==/UserScript==
+
+/* eslint-disable strict */
+'use strict';
+
+// greasemonkey.js
+/* global registerToggleMenuCmd */
+
+// utils.js
+/* global search, isIntersecting, getClosestElement, mutationObserver */
 
 // Determines whether to try to display emojis using images.
 const supportsHas = CSS.supports('selector(:has(._))');
@@ -93,8 +93,7 @@ function createImage(src, attr) {
     });
 }
 
-function createEmojiImage(emoji, callback) {
-    const cp = getEmojiCodePoint(emoji);
+function createEmojiImage(cp, emoji, callback) {
     const cp_ = cp.replaceAll('-', '_');
 
     createImage(
@@ -122,9 +121,18 @@ function createEmojiImage(emoji, callback) {
 
 function createEmoji(emoji) {
     const node = new Text(emoji);
+    const cp = getEmojiCodePoint(emoji);
+
     if (GM_getValue('use-img-emoji'))
-        createEmojiImage(emoji, img => node.replaceWith(img));
-    return createSpan(node, 'x-emoji-wrapper');
+        createEmojiImage(cp, emoji, img => node.replaceWith(img));
+
+    const span = createSpan(node, 'x-emoji-wrapper');
+    setTimeout(() => {
+        span.setAttribute('cp', cp);
+        if (!span.closest('[title]'))
+            span.setAttribute('title', cp);
+    });
+    return span;
 }
 
 function parseTextNodes(parent, list=[]) {
@@ -169,7 +177,7 @@ mutationObserver(({ root }) => {
     // YouTube
     if (supportsHas) // firefox... 💩
     for (const content of root.querySelectorAll(
-        ':not(.x-yt-emoji):has(>img.emoji[src*="/emoji/"])'
+        ':not(.x-yt-emoji):has(>img.emoji[src*="/gaming/emoji/"])'
     )) {
         content.classList.add('x-yt-emoji');
         let text = '';
