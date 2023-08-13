@@ -9,7 +9,7 @@ Automatically blocks users who spam empty tweets that only contain a mention of 
 > **Blacklist:** <br/>
 > `ReplyGPT` `RoflGPTBot` `LmaoGPT` `BurnGPT` `TruthGPTBot` `EntertainUsNob` `ExplainThisGod` `RoastHimJim` `RoastMasterYoda` `MakeItAQuote` `DrawThisTweet` `McPepes_AI` `GrugThis` `ExplainthisRick` `FrameHimJim` `ExplainThisBean` `ExplainThisLiu` `ExplainThisTumb` `BasedReplyBot` `LameGPT` `MrShelbySays` `MarinethisBob` `ReplyGrump` `BoomerExplains` `PleaseDebunk` `ReplyGPT_Lol`
 
-> **Warning**
+> [!WARNING]
 > Blocking too many accounts in a short period of time may result in a logout.
 
 ## Installation
