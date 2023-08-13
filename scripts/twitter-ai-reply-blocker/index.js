@@ -1,12 +1,3 @@
-/* eslint-disable strict, no-alert */
-'use strict';
-
-// utils.js
-/* global mutationObserver */
-
-// twitter.js
-/* global Twitter */
-
 // ==UserScript==
 // @name        Twitter AI Reply Blocker
 // @author      Flipeador
@@ -23,6 +14,15 @@
 // @require     https://raw.githubusercontent.com/flipeador/browser-scripts/c556acdb91be801162223f60352d08ec968256a9/scripts/twitter.js
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/twitter-ai-reply-blocker/index.js
 // ==/UserScript==
+
+/* eslint-disable strict, no-alert */
+'use strict';
+
+// utils.js
+/* global mutationObserver */
+
+// twitter.js
+/* global Twitter */
 
 // Blacklisted accounts.
 const BLACKLIST = ['ReplyGPT_Lol', 'ReplyGPT', 'RoflGPTBot', 'LmaoGPT', 'BurnGPT', 'TruthGPTBot', 'EntertainUsNob', 'ExplainThisGod', 'RoastHimJim', 'RoastMasterYoda', 'MakeItAQuote', 'DrawThisTweet', 'McPepes_AI', 'GrugThis', 'ExplainthisRick', 'FrameHimJim', 'ExplainThisBean', 'ExplainThisLiu', 'ExplainThisTumb', 'BasedReplyBot', 'LameGPT', 'MrShelbySays', 'MarinethisBob', 'ReplyGrump', 'BoomerExplains', 'PleaseDebunk'];
