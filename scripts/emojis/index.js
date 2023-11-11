@@ -30,7 +30,6 @@
 // utils.js
 /* global search, isIntersecting, getClosestElement, mutationObserver */
 
-// Determines whether to try to display emojis using images.
 const supportsHas = CSS.supports('selector(:has(._))');
 
 const U200D = String.fromCharCode(0x200D); // Zero Width Joiner
