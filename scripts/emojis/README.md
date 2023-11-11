@@ -7,7 +7,7 @@ This script allows you to render all emoji symbols and sequences in the browser,
 
 - Unicode Emoji Version: `v15`.
 - Included fonts: [Twemoji][twfnt], [Noto Color Emoji][nefnt].
-- Some option are available from the [User Script Commands][mm] menu.
+- Some options are available from the [User Script Commands][mm] menu.
   - Toggle the use of images to display emojis. Note that some sites may block the loading of images due to [security reasons][csp].
   - Toggle the enforce emoji-style mode (Variation Selector-15).
 - There is a special handling for emojis on **YouTube**, but it requires the [`:has`][csshas] CSS selector.
@@ -15,6 +15,8 @@ This script allows you to render all emoji symbols and sequences in the browser,
 Visit [getemoji.com][ge] to test support for emojis on your browser.
 
 You can also check the Unicode official website at [unicode.org][uni1] or [unicode-org.github.io][uni2].
+
+Consider reading [Unicode Characters][uc] to get a better understanding of unicode characters and emojis.
 
 ## Installation
 
@@ -34,3 +36,4 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 [csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP "Content Security Policy"
 [ge]: https://getemoji.com
 [mm]: https://wiki.greasespot.net/Greasemonkey_Manual:Monkey_Menu
+[uc]: https://gist.github.com/flipeador/4ea725293c49a270bcc6e96ef2b8d281 "Unicode Characters (Gist)"
