@@ -5,13 +5,12 @@ They represent things such as faces, weather, vehicles and buildings, food and d
 
 This script allows you to render all emoji symbols and sequences in the browser, as specified in [Unicode® Technical Standard #51][uts51].
 
-- Unicode Emoji Version: `v15.0`.
+- Unicode Emoji Version: `v15`.
 - Included fonts: [Twemoji][twfnt], [Noto Color Emoji][nefnt].
-- You can enable the use of images to display emojis from the [User Script Commands][mm] menu.
+- Some option are available from the [User Script Commands][mm] menu.
+  - Toggle the use of images to display emojis. Note that some sites may block the loading of images due to [security reasons][csp].
+  - Toggle the enforce emoji-style mode (Variation Selector-15).
 - There is a special handling for emojis on **YouTube**, but it requires the [`:has`][csshas] CSS selector.
-
-> [!NOTE]
-> Some sites may block the loading of emoji images due to [security reasons][csp].
 
 Visit [getemoji.com][ge] to test support for emojis on your browser.
 
