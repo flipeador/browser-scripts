@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Full Emoji Support For All Websites
 // @author      Flipeador
-// @version     1.0.2
+// @version     1.0.3
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/emojis
 // @include     *
