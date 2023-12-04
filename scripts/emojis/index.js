@@ -106,8 +106,9 @@ function createEmojiImage(cp, emoji, callback) {
             // https://github.com/twitter/twemoji
             // https://github.com/jdecked/twemoji
             // https://cdnjs.com/libraries/twemoji
+            `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cp}.svg`,
+            `https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.2/assets/svg/${cp}.svg`,
             `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${cp}.svg`,
-            `https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/${cp}.svg`,
             // Google Noto Emoji
             // https://github.com/googlefonts/noto-emoji
             `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/emoji_u${cp_}.svg`
@@ -217,10 +218,13 @@ mutationObserver(({ root }) => {
 });
 
 GM_addStyle(`
-  /* https://www.jsdelivr.com/package/npm/twemoji-colr-font */
-  @import url('https://cdn.jsdelivr.net/npm/twemoji-colr-font/twemoji.min.css');
+  /* Noto Color Emoji */
   /* https://fonts.google.com/noto/specimen/Noto+Color+Emoji */
   @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
+  /* Twemoji Colr Font */
+  /* https://www.jsdelivr.com/package/npm/twemoji-colr-font */
+  @import url('https://cdn.jsdelivr.net/npm/twemoji-colr-font/twemoji.min.css');
 
   .x-emoji-wrapper {
     font-family: Twemoji, "Noto Color Emoji", sans-serif !important;
