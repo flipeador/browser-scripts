@@ -2,31 +2,16 @@
   "name": "@flipeador/browser-scripts",
   "description": "Monorepo with scripts for use with extensions that provides userscripts support for browsers.",
   "version": "1.0.0",
-  "keywords": [
-    "javascript",
-    "browser",
-    "scripts",
-    "greasemonkey",
-    "tampermonkey",
-    "violentmonkey"
-  ],
-  "license": "apache-2.0",
+  "author": "Flipeador (https://github.com/flipeador)",
+  "repository": "github:flipeador/browser-scripts",
+  "license": "Apache-2.0",
+  "type": "module",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test",
     "lint": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/flipeador/browser-scripts.git"
-  },
-  "author": "Flipeador (https://github.com/flipeador)",
-  "bugs": {
-    "url": "https://github.com/flipeador/browser-scripts/issues"
-  },
-  "homepage": "https://github.com/flipeador/browser-scripts#readme",
-  "type": "module",
   "devDependencies": {
-    "eslint": "^8.53.0",
-    "globals": "^13.23.0"
+    "eslint": "^8.56.0",
+    "globals": "^13.24.0"
   }
 }
