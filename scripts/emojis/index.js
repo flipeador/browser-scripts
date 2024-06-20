@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name        Full Emoji Support For All Websites
 // @author      Flipeador
-// @version     1.0.3
+// @version     1.0.4
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/emojis
 // @include     *
@@ -63,15 +63,20 @@ function observe(node, callback) {
     return observer;
 }
 
-// https://gist.github.com/flipeador/4ea725293c49a270bcc6e96ef2b8d281
-function getEmojiCodePoint(str) {
+function emojiToCodePoints(str, sep='-') {
     return [...(
         str.indexOf(U200D) === -1
         ? str.replace(reUFE0F, '')
         : str
     )]
     .map(cp => cp.codePointAt(0).toString(16))
-    .join('-');
+    .join(sep);
+}
+
+function codePointsToEmoji(str, sep='-') {
+    return String.fromCodePoint(
+        ...str.split(sep).map(cp => parseInt(cp, 16))
+    );
 }
 
 function createSpan(node, cls='') {
@@ -106,8 +111,7 @@ function createEmojiImage(cp, emoji, callback) {
             // https://github.com/jdecked/twemoji
             // https://cdnjs.com/libraries/twemoji
             `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cp}.svg`,
-            `https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.2/assets/svg/${cp}.svg`,
-            `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${cp}.svg`,
+            `https://cdnjs.cloudflare.com/ajax/libs/twemoji/15.1.0/svg/${cp}.svg`,
             // Google Noto Emoji
             // https://github.com/googlefonts/noto-emoji
             `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/emoji_u${cp_}.svg`
@@ -131,7 +135,7 @@ function createEmoji(emoji) {
     const isTextStyle = !GM_getValue('force-emoji-style') && reUFE0E.test(emoji);
     emoji = emoji.replace(reUFE0E, '');
 
-    const cp = getEmojiCodePoint(emoji);
+    const cp = emojiToCodePoints(emoji);
 
     if (!isTextStyle && GM_getValue('use-img-emoji'))
         createEmojiImage(cp, emoji, img => node.replaceWith(img));
@@ -189,28 +193,15 @@ mutationObserver(({ root }) => {
         observers.pop().disconnect();
 
     // YouTube
-    if (supportsHas) // firefox... 💩
-    for (const content of root.querySelectorAll(
-        ':not(.x-yt-emoji):has(>img.emoji[src*="/gaming/emoji/"])'
+    // Replace span>img emoji with Text node emoji.
+    if (supportsHas) // firefox >=125
+    for (const comment of root.querySelectorAll(
+        'span:has(>img.yt-core-image[src*="/gaming/emoji/"])'
     )) {
-        content.classList.add('x-yt-emoji');
-        let text = '';
-        const fragment = new DocumentFragment();
-        for (const node of [...content.childNodes]) {
-            if (
-                node instanceof HTMLSpanElement ||
-                node instanceof HTMLImageElement &&
-                node.src.indexOf('/emoji/') !== -1
-            ) text += node.alt ?? node.innerText;
-            else {
-                if (text) fragment.appendChild(new Text(text));
-                fragment.appendChild(node); // [!] cut-and-paste
-                text = '';
-            }
-        }
-        if (text) fragment.appendChild(new Text(text));
-        content.replaceChildren();
-        content.appendChild(fragment);
+        const img = comment.querySelector('img');
+        const cps = /emoji_u([\w_]+)/.exec(img.src)[1];
+        const emoji = codePointsToEmoji(cps, '_');
+        comment.replaceWith(new Text(emoji));
     }
 
     parseTextNodes(root, node => observe(node, parseTextNode));
