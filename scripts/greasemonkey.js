@@ -1,4 +1,4 @@
-/* eslint-disable strict, no-unused-vars */
+/* eslint-disable no-unused-vars */
 'use strict';
 
 function registerToggleMenuCmd(key, name) {
