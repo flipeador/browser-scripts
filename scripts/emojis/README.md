@@ -5,18 +5,18 @@ They represent things such as faces, weather, vehicles and buildings, food and d
 
 This script allows you to render all emoji symbols and sequences in the browser, as specified in [Unicode® Technical Standard #51][uts51].
 
-- Unicode Emoji Version: `15`.
+- Unicode Emoji Version: `15.1.0`.
 - Included fonts: [Twemoji][tcf], [Noto Color Emoji][nce].
 - Some options are available from the [User Script Commands][gmm] menu.
   - Toggle the use of images to display emojis. Note that some sites may block the loading of images due to [security reasons][csp].
-  - Toggle the enforce emoji-style mode (Variation Selector-15).
-- There is a special handling for emojis on **YouTube**, but it requires the [`:has`][has] CSS selector.
+  - Toggle the force emoji-style mode (Variation Selector-15).
+- There is a special handling for emojis on **YouTube**.
 
 Visit [getemoji.com][gem] to test support for emojis on your browser.
 
-You can also check the Unicode official website at [unicode.org][ue1] or [unicode-org.github.io][ue2].
+Visit the Unicode official website at [unicode.org][ue1] or [unicode-org.github.io][ue2].
 
-Consider reading [Unicode Characters][uch] to get a better understanding of unicode characters and emojis.
+Read [Unicode Characters][uch] to get a better understanding of unicode characters and emojis.
 
 ## Installation
 
@@ -32,7 +32,6 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 [ue2]: https://unicode-org.github.io/emoji/emoji
 [tcf]: https://www.jsdelivr.com/package/npm/twemoji-colr-font
 [nce]: https://fonts.google.com/noto/specimen/Noto+Color+Emoji
-[has]: https://caniuse.com/css-has
 [csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP "Content Security Policy"
 [gem]: https://getemoji.com
 [gmm]: https://wiki.greasespot.net/Greasemonkey_Manual:Monkey_Menu
