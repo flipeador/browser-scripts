@@ -15,7 +15,7 @@ import stylistic from '@stylistic/eslint-plugin';
 
 export default [
     {
-       languageOptions: {
+        languageOptions: {
             globals: {
                 ...globals.browser,
                 ...globals.greasemonkey
