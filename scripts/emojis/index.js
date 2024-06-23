@@ -2,33 +2,36 @@
 // ==UserScript==
 // @name        Full Emoji Support For All Websites
 // @author      Flipeador
-// @version     1.0.4
+// @version     1.0.5
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/emojis
 // @include     *
-// @exclude     *twitter.com*
-// @exclude     *discord.com*
-// @exclude     *twitch.tv*
-// @exclude     *notion.so*
 // @exclude     *localhost*
+// @exclude     *discord.com*
+// @exclude     *notion.so*
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
+// @grant       GM_addElement
+// @grant       GM_getResourceText
 // @grant       GM_registerMenuCommand
 // @grant       GM_unregisterMenuCommand
 // @run-at      document-idle
-// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/761129b5da8f27b7bcf96d69b45c42207e4cfa0a/scripts/greasemonkey.js
+// @require     https://raw.githubusercontent.com/flipeador/browser-scripts/2643ded64b4213b6a0a34721e61122f9ada25490/scripts/greasemonkey.js
 // @require     https://raw.githubusercontent.com/flipeador/browser-scripts/761129b5da8f27b7bcf96d69b45c42207e4cfa0a/scripts/utils.js
+// @resource    EMOJIS https://raw.githubusercontent.com/flipeador/browser-scripts/ab5e9d526d52ad4400c9f5f71ded6caf3d685b6f/scripts/emojis/emojis.json
 // @downloadURL https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/index.js
 // ==/UserScript==
 
 // greasemonkey.js
-/* global registerToggleMenuCmd */
+/* global regToggleMenuCmd */
 
 // utils.js
 /* global search, isIntersecting, getClosestElement, mutationObserver */
 
+const url = new URL(location.href);
 const supportsHas = CSS.supports('selector(:has(._))');
+const emojis = JSON.parse(GM_getResourceText('EMOJIS'));
 
 const U200D = String.fromCharCode(0x200D); // Zero Width Joiner
 const reUFE0E = /\uFE0E/gu; // Variation Selector-15 (text-style)
@@ -42,8 +45,42 @@ const re = /[#*0-9](\uFE0E|\uFE0F)?\u20E3|[\xA9\xAE\u203C\u2049\u2122\u2139\u219
 
 const observers = [];
 
-registerToggleMenuCmd('use-img-emoji', 'Use Image Emoji');
-registerToggleMenuCmd('force-emoji-style', 'Force Emoji-Style');
+regToggleMenuCmd(
+    'Use emoji image',
+    ({ enabled }) => {
+        const spans = document.querySelectorAll('.x-emoji-font');
+        for (const span of spans) {
+            const cp = span.getAttribute('cp');
+            const emoji = span.getAttribute('emoji');
+            span.replaceChildren(new Text(emoji));
+            if (enabled) createEmojiImage(span, emoji, cp);
+        }
+    },
+    'use-emoji-image'
+);
+
+regToggleMenuCmd(
+    'Use drop-shadow filter',
+    ({ enabled }) => {
+        const spans = document.querySelectorAll('.x-emoji-span');
+        for (const span of spans) setDropShadowFilter(span, enabled);
+    },
+    'drop-shadow-filter'
+);
+
+regToggleMenuCmd(
+    `Allow ${url.host}`,
+    ({ enabled }) => {
+        const blacklist = GM_getValue('blacklist') || [];
+        const index = blacklist.indexOf(url.host);
+        if (enabled && index !== -1)
+            blacklist.splice(index, 1);
+        if (!enabled && index === -1)
+            blacklist.push(url.host);
+        GM_setValue('blacklist', blacklist);
+    },
+    !GM_getValue('blacklist')?.includes(url.host)
+);
 
 function observe(node, callback) {
     const target = getClosestElement(node);
@@ -63,6 +100,12 @@ function observe(node, callback) {
     return observer;
 }
 
+function setDropShadowFilter(img, enabled) {
+    enabled ??= GM_getValue('drop-shadow-filter');
+    img.style.filter = !enabled ? ''
+        : 'drop-shadow(0px 0px 1px currentColor)';
+}
+
 function emojiToCodePoints(str, sep='-') {
     return [...(
         str.indexOf(U200D) === -1
@@ -79,29 +122,34 @@ function codePointsToEmoji(str, sep='-') {
     );
 }
 
-function createSpan(node, cls='') {
+function createSpan(node, cls) {
     const span = document.createElement('span');
     span.className = `x-emoji ${cls}`;
+    if (typeof(node) === 'string')
+        node = new Text(node);
     span.appendChild(node);
     return span;
 }
 
-function createImage(src, attr) {
-    const img = new Image();
+function createImage(src, attr, index=0) {
     return new Promise((resolve, reject) => {
-        let index = 0;
+        const img = GM_addElement('img', {
+            ...attr,
+            src: src[index],
+            decoding: 'async',
+            fetchpriority: 'low',
+            class: 'x-emoji x-emoji-img'
+        });
+        img.onload = e => resolve(e.target);
         img.onerror = event => {
-            if (++index >= src.length)
-                return reject(event.target);
-            event.target.src = src[index];
+            event.target.remove();
+            if (++index >= src.length) return reject();
+            createImage(src, attr, index).then(resolve, reject);
         };
-        img.onload = ev => resolve(ev.target);
-        if (attr) Object.assign(img, attr);
-        setTimeout(() => img.src = src[index]);
     });
 }
 
-function createEmojiImage(cp, emoji, callback) {
+function createEmojiImage(span, emoji, cp) {
     const cp_ = cp.replaceAll('-', '_');
 
     createImage(
@@ -120,34 +168,35 @@ function createEmojiImage(cp, emoji, callback) {
             // `https://raw.githubusercontent.com/bignutty/fluent-emoji/main/animated/${cp}.png`,
             // `https://raw.githubusercontent.com/bignutty/fluent-emoji/main/vector/${cp}.svg`
         ],
-        { className: 'x-emoji x-emoji-img', alt: emoji, draggable: false }
+        { alt: emoji, draggable: false }
     ).then(
-        img => callback(img),
+        img => span.firstChild.replaceWith(img),
         () => console.warn(`Failed to load emoji "${emoji}" (${cp})`)
     );
 }
 
 function createEmoji(emoji) {
-    const node = new Text(emoji);
-
     // Variation Selector-15 (FE0E).
-    // Determines whether to enforce text-style (preventing the character from being replaced with an Emoji).
-    const isTextStyle = !GM_getValue('force-emoji-style') && reUFE0E.test(emoji);
-    emoji = emoji.replace(reUFE0E, '');
+    // Determines whether to force text-style (monochrome).
+    // Prevent the emoji character from being replaced with an image element.
+    const isTextStyle = reUFE0E.test(emoji);
 
     const cp = emojiToCodePoints(emoji);
+    const span = createSpan(emoji, 'x-emoji-span');
+    span.setAttribute('cp', cp);
+    span.setAttribute('emoji', emoji);
 
-    if (!isTextStyle && GM_getValue('use-img-emoji'))
-        createEmojiImage(cp, emoji, img => node.replaceWith(img));
+    if (!isTextStyle) {
+        span.classList.add('x-emoji-font');
+        if (GM_getValue('use-emoji-image'))
+            createEmojiImage(span, emoji, cp);
+        setDropShadowFilter(span);
+    }
 
-    const span = createSpan(node, isTextStyle ? '' : 'x-emoji-wrapper');
-
-    // Execute later, after the span element is embedded in the DOM.
+    // Execute later, after the span element is added to the DOM.
     setTimeout(() => {
-        span.setAttribute('cp', cp);
         if (!span.closest('[title]'))
-            // Ideally, this should be set to the emoji name or description.
-            span.setAttribute('title', cp + (isTextStyle ? ' (text-style)' : ''));
+            span.setAttribute('title', emojis[cp] || cp);
     });
 
     return span;
@@ -162,7 +211,7 @@ function parseTextNodes(parent, list=[]) {
             !node.classList?.contains('x-emoji') &&
             !node.classList?.contains('emoji-list') && // [?] emoji picker
             !node.classList?.contains('aria-hidden') &&
-            !node.hasAttribute?.('aria-hidden') &&
+            !node.hasAttribute?.('aria-hidden=true') &&
             !node.hasAttribute?.('contenteditable') &&
             !('ownerSVGElement' in node) &&
             !(/^(?:iframe|noframes|noscript|script|select|style|textarea)$/u)
@@ -180,20 +229,16 @@ function parseTextNode(node) {
     )) node.replaceWith(createSpan(fragment));
 }
 
-// function parseImageNode(img)
-// {
-//     img.classList.add('x-emoji');
-//     createEmojiImage(img.alt, emoji => {
-//         img.replaceWith(createSpan(emoji, 'x-emoji x-emoji-wrapper'));
-//     });
-// }
-
 mutationObserver(({ root }) => {
+    const blacklist = GM_getValue('blacklist') || [];
+    if (blacklist.indexOf(url.host) !== -1) return;
+
     while (observers.length)
         observers.pop().disconnect();
 
     // YouTube
     // Replace span>img emoji with Text node emoji.
+    // https://www.youtube.com/s/gaming/emoji/7ff574f2/emoji_u1f44d_1f3ff.png
     if (supportsHas) // firefox >=125
     for (const comment of root.querySelectorAll(
         'span:has(>img.yt-core-image[src*="/gaming/emoji/"])'
@@ -212,17 +257,12 @@ GM_addStyle(`
   /* https://fonts.google.com/noto/specimen/Noto+Color+Emoji */
   @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
 
-  /* Twemoji Colr Font */
-  /* https://www.jsdelivr.com/package/npm/twemoji-colr-font */
-  @import url('https://cdn.jsdelivr.net/npm/twemoji-colr-font/twemoji.min.css');
-
-  .x-emoji-wrapper {
-    font-family: Twemoji, "Noto Color Emoji", sans-serif !important;
-    cursor: text !important;
+  .x-emoji-font {
+    font-family: "Noto Color Emoji", sans-serif !important;
   }
 
-  :is(a, button, [role="button"]) .x-emoji-wrapper {
-    cursor: unset !important;
+  .x-emoji-span:not(a, button, [role="button"]) {
+    cursor: text !important;
   }
 
   .x-emoji-img {
