@@ -2,3 +2,5 @@
 /pnpm-lock.yaml
 /clear.bat
 *.bak
+
+/scripts/emojis/emojis.txt
