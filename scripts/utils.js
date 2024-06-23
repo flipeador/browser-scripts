@@ -67,3 +67,19 @@ function mutationObserver(callback, root=document.body, delay=500) {
         }, delay);
     }).observe(root, { subtree: true, childList: true });
 }
+
+function querySelector(query, counter=Infinity) {
+    return new Promise(resolve => {
+        const obj = { };
+        obj.timer = setInterval(
+            () => {
+                const element = document.querySelector(query);
+                if (element || --counter < 1) {
+                    resolve(element);
+                    clearInterval(obj.timer);
+                }
+            },
+            1000
+        );
+    });
+}
