@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name        Full Emoji Support For All Websites
 // @author      Flipeador
-// @version     1.0.6
+// @version     1.0.7
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/emojis
 // @match       *://*/*
@@ -50,12 +50,14 @@ const re = /[#*0-9](\uFE0E|\uFE0F)?\u20E3|[\xA9\xAE\u203C\u2049\u2122\u2139\u219
 const observers = [];
 
 const emojis2 = {
-    // Handshake with different skin tones.
-    '1faf1-200d-1faf2': emojis['1f91d'],
-    // Couple With Heart: Person, Person.
+    '1faf1-200d-1faf2': 'Handshake',
     '1f9d1-200d-2764-200d-1f9d1': 'Couple With Heart: Person, Person',
-    // Kiss: Person, Person.
-    '1f9d1-200d-2764-200d-1f48b-200d-1f9d1': 'Kiss: Person, Person'
+    '1f9d1-200d-2764-200d-1f48b-200d-1f9d1': 'Kiss: Person, Person',
+    '1f3fb': 'Light skin tone',
+    '1f3fc': 'Medium-light skin tone',
+    '1f3fd': 'Medium skin tone',
+    '1f3fe': 'Medium-dark skin tone',
+    '1f3ff': 'Dark skin tone',
 };
 
 for (let key in emojis) {
@@ -288,6 +290,10 @@ GM_addStyle(`
 
   .x-emoji-text {
     cursor: text !important;
+  }
+
+  .x-emoji-span {
+    display: inline-block !important;
   }
 
   .x-emoji-img {
