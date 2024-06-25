@@ -4,7 +4,7 @@ Emoji are pictographs (pictorial symbols) that are typically presented in a colo
 They represent things such as faces, weather, vehicles and buildings, food and drink, animals and plants,
 or icons that represent emotions, feelings, or activities.
 
-Render all emoji symbols and sequences in the browser, as specified in the [Unicode® Technical Standard #51][uts51].
+Render all emoji symbols and sequences in the browser, as specified in the [Unicode®︎ Technical Standard #51][uts51].
 
 By default, the script uses the [Noto Color Emoji][nce] font to display emojis.
 You can enable de use of **emoji images** from the [User Script Commands][gmm] menu,
