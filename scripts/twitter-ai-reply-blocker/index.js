@@ -2,10 +2,10 @@
 // ==UserScript==
 // @name        Twitter AI Reply Blocker
 // @author      Flipeador
-// @version     1.0.4
+// @version     1.0.5
 // @namespace   https://github.com/flipeador/browser-scripts
 // @homepageURL https://github.com/flipeador/browser-scripts/tree/main/scripts/twitter-ai-reply-blocker
-// @match       https://twitter.com/*
+// @match       *://*.x.com/*
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
