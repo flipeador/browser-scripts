@@ -6,8 +6,9 @@ or icons that represent emotions, feelings, or activities.
 
 Render all emoji symbols and sequences in the browser, as specified in the [Unicode®︎ Technical Standard #51][uts51].
 
-By default, the script uses the [Noto Emoji][nef] and [Noto Color Emoji][ncef] fonts to display emojis.
-You can enable the use of **emoji images** from the [User Script Commands][gmm] menu,
+By default, the script uses the [Noto Emoji][nef] and [Noto Color Emoji][ncef] fonts to display emojis,
+you might want to install them locally on your system just in case.
+For polychrome emojis, you can enable the use of images to display emojis from the [User Script Commands][gmm] menu,
 the script will try to load the image from a SVG file, prioritizing [Twemoji][twe].
 Images are loaded using [`GM_addElement`][gae], which allows to circumvent a strict [Content Security Policy][csp] (CSP).
 
@@ -17,12 +18,14 @@ Visit the Unicode official website at [unicode.org][ue1] or [unicode-org.github.
 
 Read [Unicode Characters][uch] to get a better understanding of unicode characters and emojis.
 
-### Features
+## Features
 
 - [x] Support image emojis: [Twemoji][twe], [Noto Emoji][ne].
 - [x] Support animated emojis: [MS Fluent Emoji][fe].
 - [x] Support [monochrome][nef] and [polychrome][ncef] emojis.
-- [x] Show the emoji name on mouse over ([`title`][title]).
+- [x] Special handling for emojis on YouTube and Twitter.
+- [x] Fix weird [shrinking font size of hyperlinks][xfsl] on Twitter.
+- [x] Show emoji name and code point [on mouse over][title].
 - [x] Characters `©︎` and `®︎` are not treated as emojis.
 - [x] Support Unicode Emoji [`v16.0β`][160] (2024).
 
@@ -45,9 +48,9 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 [uch]: https://gist.github.com/flipeador/4ea725293c49a270bcc6e96ef2b8d281 "Unicode Characters (Gist)"
 
 [csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-[title]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title
+[title]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title "HTML title attribute"
 
-[twe]: https://cdnjs.com/libraries/twemoji
+[twe]: https://github.com/jdecked/twemoji
 [fe]: https://github.com/bignutty/fluent-emoji
 [ne]: https://github.com/googlefonts/noto-emoji
 [nef]: https://fonts.google.com/noto/specimen/Noto+Emoji "Noto Emoji (font)"
@@ -55,3 +58,5 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 
 [gae]: https://violentmonkey.github.io/api/gm/#gm_addelement
 [gmm]: https://wiki.greasespot.net/Greasemonkey_Manual:Monkey_Menu
+
+[xfsl]: https://www.reddit.com/r/Twitter/comments/1beghib/hyperlink_font_size_shrinks_on_chrome
