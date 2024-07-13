@@ -315,7 +315,8 @@ function parseTwitterNodes() {
     // https://www.reddit.com/r/Twitter/comments/1beghib/hyperlink_font_size_shrinks_on_chrome
     for (const a of root.querySelectorAll('a'))
         for (const node of a.childNodes)
-            node.style?.removeProperty('font-size');
+            if (node.nodeType === Node.ELEMENT_NODE)
+                node.style['font-size'] = 'unset';
 }
 
 mutationObserver(() => {
