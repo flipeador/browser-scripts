@@ -24,7 +24,6 @@ Read [Unicode Characters][uch] to get a better understanding of unicode characte
 - [x] Support animated emojis: [MS Fluent Emoji][fe].
 - [x] Support [monochrome][nef] and [polychrome][ncef] emojis.
 - [x] Special handling for emojis on YouTube and Twitter.
-- [x] Fix weird [shrinking font size of hyperlinks][xfsl] on Twitter.
 - [x] Show emoji name and code point [on mouse over][title].
 - [x] Characters `©︎` and `®︎` are not treated as emojis.
 - [x] Support Unicode Emoji [`v16.0β`][160] (2024).
@@ -58,5 +57,3 @@ https://raw.githubusercontent.com/flipeador/browser-scripts/main/scripts/emojis/
 
 [gae]: https://violentmonkey.github.io/api/gm/#gm_addelement
 [gmm]: https://wiki.greasespot.net/Greasemonkey_Manual:Monkey_Menu
-
-[xfsl]: https://www.reddit.com/r/Twitter/comments/1beghib/hyperlink_font_size_shrinks_on_chrome

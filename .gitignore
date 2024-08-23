@@ -1,6 +1,5 @@
 ﻿/node_modules/
 /pnpm-lock.yaml
-/clear.bat
 *.bak
 
 /scripts/emojis/emojis.txt

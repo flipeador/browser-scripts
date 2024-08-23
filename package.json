@@ -11,9 +11,9 @@
     "emojis": "node scripts/emojis/emojis.js"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^2.3.0",
-    "eslint": "^9.7.0",
-    "globals": "^15.8.0"
+    "@stylistic/eslint-plugin": "^2.6.4",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0"
   },
   "engines": {
     "node": ">=18",
